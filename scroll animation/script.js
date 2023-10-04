@@ -1,24 +1,20 @@
-const textEl = document.getElementById('text');
-const speedEl = document.getElementById('speed');
-const text = 'We love Front End Development';
+const boxes = document.querySelectorAll('.box');
 
-let idx = 1;
-let speed = 300 / speedEl.value;
+window.addEventListener('scroll', checkboxes);
 
-writeText ();
+checkboxes();
 
+function checkboxes() {
+    const triggerBottom = (window.innerHeight/5 * 4);
 
-function writeText() {
-    textEl.innerText = text.slice(0, idx);
+    boxes.forEach(box => {
+        const boxTop = box.getBoundingClientRect().top;
+        
+        if(boxTop < triggerBottom) {
+            box.classList.add("show");
+        } else {
+            box.classList.remove("show");
+        }
+    })
 
-    idx ++;
-
-    if(idx > text.length){
-        idx = 1;
-
-    };
-
-    setTimeout(writeText, speed);
 }
-
-speedEl.addEventListener('input', (e) => speed = 300/ e.target.value);
